@@ -1,23 +1,76 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { companies, retrieveInvoicesByAmount, retrieveInvoicesBySupplier } from './domain'
 
 function App() {
+  const [selectedCompanyName, setSelectedCompanyName] = useState("")
+  const [selectedAmount, setSelectedAmount] = useState("")
+
+  const shownInvoices = selectedAmount > 0 ? retrieveInvoicesByAmount(selectedAmount) : retrieveInvoicesBySupplier(selectedCompanyName)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input 
+        placeholder="Filter by amount" 
+        type="number"
+        value={selectedAmount}
+        onChange={e => { 
+          setSelectedCompanyName(""); 
+          setSelectedAmount(e.target.value);
+      }}/>
+
+      <div>
+        <select 
+          value={selectedCompanyName} 
+          onChange={e => {
+            setSelectedAmount("")
+            setSelectedCompanyName(e.target.value);
+          }}>
+          <option value="">Filter by company name</option>
+
+          {companies().map(company => (
+            <option key={company.id} value={company.name}>
+              {company.name} - {company.id}
+            </option>
+          ))}
+
+        </select>
+      </div>      
+
+      <table>
+        <thead>
+          <tr>
+            <th>
+              ID
+            </th>
+            <th>
+              Amount
+            </th>
+            <th>
+              Due date
+            </th>
+            <th>
+              Supplier ID
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {shownInvoices.map(invoice => (
+            <tr key={invoice.id}>
+              <td>
+                {invoice.id}
+              </td>
+              <td>
+                {invoice.amount}
+              </td>
+              <td>
+                {invoice.dueDate}
+              </td>
+              <td>
+                {invoice.supplierId}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -1,0 +1,32 @@
+{
+    "companies": [
+        {
+            "id": "aaaa-bbbb",
+            "name": "Aaa bbb ltd"
+        },
+        {
+            "id": "bbbb-bbbb",
+            "name": "Bbb bbb ltd"
+        }
+    ],
+    "invoices": [
+        {
+            "id": "cccc-cccc",
+            "supplierId": "aaaa-bbbb",
+            "dueDate": "2020-03-08T00:00:00.000Z",
+            "amount": "500"
+        },
+        {
+            "id": "dddd-dddd",
+            "supplierId": "aaaa-bbbb",
+            "dueDate": "2020-03-08T00:00:00.000Z",
+            "amount": "400"
+        },
+        {
+            "id": "eeee-eeee",
+            "supplierId": "bbbb-bbbb",
+            "dueDate": "2020-03-08T00:00:00.000Z",
+            "amount": "700"
+        }
+    ]
+}
